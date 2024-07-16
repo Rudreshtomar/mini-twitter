@@ -6,6 +6,11 @@ This project is a basic clone of Twitter's homepage, implemented using React and
 2. RETRIEVING TWEET - Tweets are fetched from the Apex Oracle database using RESTful services.
 
 # TECHNOLOGIES USED
-Frontend: React, Bootstrap
-Backend: Apex Oracle Database, RESTful API
-Libraries: Fuse.js for fuzzy search
+* Frontend: React, Bootstrap
+* Backend: Apex Oracle Database, RESTful API
+* Libraries: Fuse.js for fuzzy search
+
+# Acknowledgements
+* Inspired by Twitter's homepage design
+* Special thanks to the creators of the libraries and tools used in this project.
+
