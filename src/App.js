@@ -1,25 +1,43 @@
 import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header';
+import AllTweets from './components/AllTweets';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [allTweets, setAllTweets] = useState([])
+  const [loading, setLoading] = useState(true);
+
+  async function getTweets(){
+    setLoading(true);
+    let data = await fetch("https://apex.oracle.com/pls/apex/mini_twitter/tweets/get")
+    let convertedData = await data.json();
+    setAllTweets(convertedData.items);
+    setLoading(false);
+  }
+
+  async function postTweet(tweet) {
+    console.log("posting....");
+    console.log(tweet);
+    let currentTime = new Date().toISOString().slice(0,10);
+    console.log(currentTime);
+    await fetch(`https://apex.oracle.com/pls/apex/mini_twitter/tweets/post?tweet=${tweet}&datetime=${currentTime}&likes=0&reports=0`, {method:"POST"});
+    getTweets();
+  }
+
+  useEffect(() => {
+    getTweets();
+  }, []);
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+    <Header postTweet={postTweet}   />
+    <AllTweets allTweets={allTweets} loading={loading}/>
+  </>
   );
 }
 
 export default App;
+
